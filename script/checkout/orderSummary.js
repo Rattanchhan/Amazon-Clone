@@ -9,6 +9,33 @@ let cartItemsHTML='';
 let index=0;
 let timeOutId;
 
+export function test(){
+  const deliveryDays =7;
+  let today = dayjs();
+  let dayOfWeek = today.format('dddd');
+  let countDays = 0;
+  
+  while(1){
+    if(countDays<deliveryDays){
+      if(dayOfWeek==='Saturday' || dayOfWeek==='Sunday'){
+        countDays=countDays;
+      }
+      else{
+        countDays++;
+      }
+    }
+    else{
+      break;
+    }
+    today = today.add(1,'days');
+    dayOfWeek = today.format('dddd');
+  }
+  console.log(today.subtract(1,'days').format('dddd MMM D'));
+}
+
+export default function getToday(){
+  return dayjs();
+}
 //removeLocalStorage();
 /*const today = dayjs();
 const deliveryDate = today.add(7,'days');
@@ -21,7 +48,6 @@ quantityLoad();
 cart.forEach((cartItem)=>{
   const productId = cartItem.id;
   let matchingItem=getProduct(productId);
-  console.log(matchingItem);
   cartItemsHTML+=generateHTML(matchingItem,cartItem);
 });
 
@@ -82,14 +108,28 @@ document.querySelectorAll('.js-delete-link').forEach((link)=>{
 });
 
 function getDeliveryDate(deliveryOption){
-  const today = dayjs();
-  const deliveryDate = today.add(deliveryOption.deliveryDays,
-    'days'
-  );
-  const dateString = deliveryDate.format(
-    'dddd, MMMM D'
-  );
-  return dateString;
+  const deliveryDays =deliveryOption.deliveryDays;
+  let today = dayjs();
+  let dayOfWeek = today.format('dddd');
+  let countDays = 0;
+  
+  while(1){
+    if(countDays<deliveryDays){
+      if(dayOfWeek==='Saturday' || dayOfWeek==='Sunday'){
+        countDays=countDays;
+      }
+      else{
+        countDays++;
+      }
+    }
+    else{
+      break;
+    }
+    today = today.add(1,'days');
+    dayOfWeek = today.format('dddd');
+  }
+  
+  return today.subtract(1,'days').format('dddd MMM D');
 }
 
 function generateHTML(value,cartItem){
