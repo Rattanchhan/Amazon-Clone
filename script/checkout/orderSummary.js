@@ -44,16 +44,16 @@ console.log(deliveryDate.format('dddd, MMMM D'));
 */
 
 export function renderOrderSummary(){
-quantityLoad();
+// quantityLoad();
 cart.forEach((cartItem)=>{
   const productId = cartItem.id;
   let matchingItem=getProduct(productId);
   cartItemsHTML+=generateHTML(matchingItem,cartItem);
 });
 
-function quantityLoad(){
-  document.querySelector('.js-quantity-checkout').innerHTML= `${quantityCount()} itmes`;
-}
+// function quantityLoad(){
+//   document.querySelector('.js-quantity-checkout').innerHTML= `${quantityCount()} itmes`;
+// }
 
 document.querySelector('.js-order-summary').innerHTML=cartItemsHTML;
 document.querySelectorAll('.js-update-link').
@@ -102,8 +102,8 @@ document.querySelectorAll('.js-delete-link').forEach((link)=>{
     removeFromCart(productId);
     const container=document.querySelector(`.js-cart-item-container-${productId}`);
     container.remove();
-    quantityLoad();
-    renderPaymentSummary();
+    // quantityLoad();
+    // renderPaymentSummary();
   });
 });
 
@@ -139,7 +139,7 @@ function generateHTML(value,cartItem){
 
   return (
     `
-      <div class="cart-item-container js-cart-item-container-${value.id}">
+      <div class="cart-item-container js-cart-item-container js-cart-item-container-${value.id}">
         <div class="delivery-date js-delivery-date">
           Delivery date: ${dateString}
         </div>
@@ -155,7 +155,7 @@ function generateHTML(value,cartItem){
             <div class="product-price">
               $${formatCurrency(value.priceCents)}
             </div>
-            <div class="product-quantity">
+            <div class="product-quantity js-product-quantity-${value.id}">
               <span>
                 Quantity: <span class="quantity-label js-quantity-label-${value.id}">${cartItem.quantity}</span>
               </span>
@@ -169,7 +169,7 @@ function generateHTML(value,cartItem){
               data-product-id="${value.id}">
                 Save
               </span>
-              <span class="delete-quantity-link link-primary js-delete-link"
+              <span class="delete-quantity-link link-primary js-delete-link js-delete-link-${value.id}"
               data-product-id="${value.id}">
                 Delete
               </span>
