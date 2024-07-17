@@ -43,13 +43,16 @@ export function removeLocalStorage(){
 
 export function removeFromCart(productId){
   const newCart = [];
-  cart.forEach((cartItem)=>{
+  if(productId===null){}
+  else{
+    cart.forEach((cartItem)=>{
     if(cartItem.id!==productId){
       newCart.push(cartItem);
     }
-  });
-  cart=newCart;
-  saveToStrorage();
+    });
+    cart=newCart;
+    saveToStrorage();
+  }
 }
 export function quantityCount(){
   let counts=0;
