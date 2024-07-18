@@ -44,9 +44,9 @@ console.log(deliveryDate.format('dddd, MMMM D'));
 */
 
 export function renderOrderSummary(){
-// quantityLoad();
+quantityLoad();
 //******************* Test *************/
-cartItemsHTML='';
+// cartItemsHTML='';
 //**************************************/
 cart.forEach((cartItem)=>{
   const productId = cartItem.id;
@@ -105,8 +105,8 @@ document.querySelectorAll('.js-delete-link').forEach((link)=>{
     removeFromCart(productId);
     const container=document.querySelector(`.js-cart-item-container-${productId}`);
     container.remove();
-    // quantityLoad();
-    // renderPaymentSummary();
+    quantityLoad();
+    renderPaymentSummary();
   });
 });
 
@@ -156,7 +156,7 @@ function generateHTML(value,cartItem){
               ${value.name}
             </div>
             <div class="product-price js-product-price-${value.id}">
-              $${formatCurrency(value.priceCents)}
+              ${value.getPrice()}
             </div>
             <div class="product-quantity js-product-quantity-${value.id}">
               <span>
