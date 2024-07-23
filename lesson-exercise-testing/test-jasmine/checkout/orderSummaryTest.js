@@ -1,4 +1,5 @@
 import {loadCart,cart} from '../../../data/cart.js';
+import { loadProducts } from '../../../data/products.js';
 import {renderOrderSummary} from '../../../script/checkout/orderSummary.js';
 import { formatCurrency } from '../../../script/utils/money.js';
 describe('test suite: renderOrderSummary',()=>{
@@ -10,7 +11,12 @@ describe('test suite: renderOrderSummary',()=>{
     const productPrice= formatCurrency(1090);
     const productPrice2= formatCurrency(2095);
     const deliveryOptionId= '2';
-
+  beforeAll((done)=>{
+    loadProducts(()=>{
+      done();
+    })
+  });
+  
   beforeEach(()=>{
     spyOn(localStorage,'setItem');
     document.querySelector('.js-test-container').innerHTML=`
