@@ -1,5 +1,5 @@
-import {cart,removeFromCart,quantityCount,removeLocalStorage, addToCart,updateDeliveryOption} from '../../data/cart.js';
-import {products,getProduct} from '../../data/products.js';
+import {cart} from '../../data/cart-class.js';
+import {getProduct} from '../../data/products.js';
 import {formatCurrency} from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { deliveryOptions } from '../../data/deliveryOptions.js';
@@ -30,7 +30,6 @@ export function test(){
     today = today.add(1,'days');
     dayOfWeek = today.format('dddd');
   }
-  console.log(today.subtract(1,'days').format('dddd MMM D'));
 }
 
 export default function getToday(){
@@ -48,14 +47,14 @@ quantityLoad();
 //******************* Test *************/
 // cartItemsHTML='';
 //**************************************/
-cart.forEach((cartItem)=>{
+cart.cartItem.forEach((cartItem)=>{
   const productId = cartItem.id;
   let matchingItem=getProduct(productId);
   cartItemsHTML+=generateHTML(matchingItem,cartItem);
 });
 
 function quantityLoad(){
-  document.querySelector('.js-quantity-checkout').innerHTML= `${quantityCount()} itmes`;
+  document.querySelector('.js-quantity-checkout').innerHTML= `${cart.quantityCount()} itmes`;
 }
 
 document.querySelector('.js-order-summary').innerHTML=cartItemsHTML;
@@ -84,7 +83,7 @@ forEach((link)=>{
 });
 
 function updateQuantity(link){
-  cart.forEach((item)=>{
+  cart.cartItem.forEach((item)=>{
     const saveLinkElement=document.querySelector(`.js-cart-item-container-${item.id}`);
       if(saveLinkElement.classList.contains('is-editing-quantity')){
         saveLinkElement.classList.remove('is-editing-quantity');
@@ -93,7 +92,7 @@ function updateQuantity(link){
 
   const productId=link.dataset.productId;
   const inputValue=Number(document.querySelector(`.js-quantity-input-${productId}`).value);
-  addToCart(productId,inputValue,undefined);
+  cart.addToCart(productId,inputValue,undefined);
   quantityLoad();
   document.querySelector(`.js-quantity-label-${productId}`).innerHTML=inputValue;
   renderPaymentSummary();
@@ -102,7 +101,7 @@ function updateQuantity(link){
 document.querySelectorAll('.js-delete-link').forEach((link)=>{
   link.addEventListener('click',()=>{
     const productId = link.dataset.productId;
-    removeFromCart(productId);
+    cart.removeFromCart(productId);
     const container=document.querySelector(`.js-cart-item-container-${productId}`);
     container.remove();
     quantityLoad();
@@ -238,7 +237,7 @@ document.querySelectorAll('.js-delivery-option').
 forEach((option)=>{
   option.addEventListener('click',()=>{
     const {productId,deliveryOptionId}=option.dataset;
-    updateDeliveryOption(productId,deliveryOptionId);
+    cart.updateDeliveryOption(productId,deliveryOptionId);
     const cartContainerElement = document.querySelector(`.js-cart-item-container-${productId}`);
     let deliveryOption=getDeliveryOption(deliveryOptionId);
     const dateString=getDeliveryDate(deliveryOption);

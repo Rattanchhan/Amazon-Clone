@@ -1,4 +1,3 @@
-import { cart } from "./cart.js";
 export const deliveryOptions=[
   {
     id:'1',

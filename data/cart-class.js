@@ -84,8 +84,10 @@ class Cart{
     }
 }
 
-const cart = new Cart();
-// cart.#loadCart();
-cart.addToCart("54e0eccd-8f36-462b-b68a-8182611d9add",5,null);
-console.log(cart);
-console.log(cart instanceof Cart);
+export const cart = new Cart();
+
+// const cart = new Cart();
+// // cart.#loadCart();
+// cart.addToCart("54e0eccd-8f36-462b-b68a-8182611d9add",5,null);
+// console.log(cart);
+// console.log(cart instanceof Cart);

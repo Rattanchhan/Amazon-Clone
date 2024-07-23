@@ -9,7 +9,7 @@ export function getProduct(productId){
 
   return matchingItem;
 }
-class Product{
+export class Product{
   id;
   image;
   name;
@@ -34,19 +34,34 @@ class Product{
   }
 }
 
-class Clothing extends Product{
+export class Clothing extends Product{
   sizeChartLink;
   constructor(productDetials){
     super(productDetials);
     this.sizeChartLink=productDetials.sizeChartLink;
     
   }
-
   extraInforHTML(){
+    return `<a href="${this.sizeChartLink}" target="_blank">Size chart</a>`;
+  }
+}
+
+export class Appliances extends Product{
+  instructionsLink;
+  warrantyLink;
+  constructor(productDetials) {
+    super(productDetials);
+    this.instructionsLink=productDetials.instructionsLink;
+    this.warrantyLink=productDetials.warrantyLink;
+  }
+
+  extraInforHTML() {
     return `
-    <a href="${this.sizeChartLink}" target="_blank">Size chart</a>
+    <a href="${this.instructionsLink}" target="_blank">Instructions</a>
+    <a href="${this.warrantyLink}" target="_blank">Warranty</a>
     `;
   }
+
 }
 
 // function logThis(){
@@ -120,7 +135,10 @@ export const products = [
       "toaster",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type:'appliance',
+    instructionsLink:'images/appliance-instructions.png',
+    warrantyLink:'images/appliance-warranty.png'
   },
   {
     id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
@@ -723,6 +741,11 @@ export const products = [
   if (productDetials.type === "clothing"){
     return new Clothing(productDetials);
   }
+  else if (productDetials.type ==='appliance'){
+    return new Appliances(productDetials);
+  }
+  else{
     return new Product(productDetials);
+  } 
 });
 

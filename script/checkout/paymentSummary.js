@@ -1,14 +1,14 @@
 import { getProduct } from "../../data/products.js";
-import { cart,quantityCount} from "../../data/cart.js";
+import { cart} from "../../data/cart-class.js";
 import {getDeliveryOption} from "../../data/deliveryOptions.js"
 import { formatCurrency } from "../utils/money.js";
 export function renderPaymentSummary(){
   let productPriceCents=0;
   let shippingPriceCents=0;
   let totalCents;
-  let counts = quantityCount();
+  let counts = cart.quantityCount();
 
-  cart.forEach((cartItem)=>{
+  cart.cartItem.forEach((cartItem)=>{
     const product = getProduct(cartItem.id);
     productPriceCents+=product.priceCents * cartItem.quantity;
 

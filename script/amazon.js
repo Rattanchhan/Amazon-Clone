@@ -1,13 +1,12 @@
-import {addToCart,quantityCount} from '../data/cart.js';
 import {products} from '../data/products.js';
-import { formatCurrency } from './utils/money.js';
+import {cart} from '../data/cart-class.js'
+// import { formatCurrency } from './utils/money.js';
 
 let productsHTML='';
 let index=0;
 let timeOutId;
 
-document.querySelector('.js-cart-quantity').innerHTML= `${quantityCount()}`
-quantityCount();
+document.querySelector('.js-cart-quantity').innerHTML= `${cart.quantityCount()}`
 products.forEach(value=>{
  productsHTML+= generateHTML(value);
 });
@@ -26,7 +25,7 @@ forEach((button)=>{
     const productId = button.dataset.productId;
     const quantity=Number(`${select.value}`);  
     
-    document.querySelector('.js-cart-quantity').innerHTML=`${addToCart(productId,quantity,select)}`;  
+    document.querySelector('.js-cart-quantity').innerHTML=`${cart.addToCart(productId,quantity,select)}`;  
     classList(productId);
   });
 });
