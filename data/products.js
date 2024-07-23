@@ -29,7 +29,26 @@ class Product{
   getPrice(){
     return `$${formatCurrency(this.priceCents)}`;
   }
+  extraInforHTML() {
+    return ''
+  }
 }
+
+class Clothing extends Product{
+  sizeChartLink;
+  constructor(productDetials){
+    super(productDetials);
+    this.sizeChartLink=productDetials.sizeChartLink;
+    
+  }
+
+  extraInforHTML(){
+    return `
+    <a href="${this.sizeChartLink}" target="_blank">Size chart</a>
+    `;
+  }
+}
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -690,6 +709,9 @@ export const products = [
     ]
   }
 ].map((productDetials)=>{
-  return new Product(productDetials);
+  if (productDetials.type === "clothing"){
+    return new Clothing(productDetials);
+  }
+    return new Product(productDetials);
 });
 

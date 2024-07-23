@@ -70,6 +70,7 @@ function generateHTML(value){
       </select>
     </div>
 
+    ${value.extraInforHTML()}
     <div class="product-spacer"></div>
 
     <div class="added-to-cart">
