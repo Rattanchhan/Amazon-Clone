@@ -31,14 +31,19 @@ import { loadCartTest } from '../data/cart.js';
 
 async function loadPage(){
    console.log('load page');
+   try{
+      // throw 'error1';
+      await loadProductsFetch();
 
-   await loadProductsFetch();
-
-   const value=await new Promise((resolve) => {
-         loadCartTest(() => {
-            resolve('value3');
-         });
-   });
+      const value=await new Promise((resolve,reject) => {
+            loadCartTest(() => {
+               //reject('error2');
+               resolve('value3');
+            });
+      });
+   }catch(error){
+      console.log('Unexpected error. Please try again later.');
+   }
 
    renderOrderSummary();
    renderPaymentSummary();
