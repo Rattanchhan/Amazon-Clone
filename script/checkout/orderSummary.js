@@ -109,30 +109,6 @@ document.querySelectorAll('.js-delete-link').forEach((link)=>{
   });
 });
 
-function getDeliveryDate(deliveryOption){
-  const deliveryDays =deliveryOption.deliveryDays;
-  let today = dayjs();
-  let dayOfWeek = today.format('dddd');
-  let countDays = 0;
-  
-  while(1){
-    if(countDays<deliveryDays){
-      if(dayOfWeek==='Saturday' || dayOfWeek==='Sunday'){
-        countDays=countDays;
-      }
-      else{
-        countDays++;
-      }
-    }
-    else{
-      break;
-    }
-    today = today.add(1,'days');
-    dayOfWeek = today.format('dddd');
-  }
-  
-  return today.subtract(1,'days').format('dddd MMM D');
-}
 
 function generateHTML(value,cartItem){
   let deliveryOptionId = cartItem.deliveryOptionId;
@@ -256,5 +232,29 @@ function getDeliveryOption(deliveryOptionId){
     });
     return deliveryOption;
 }
+}
+export function getDeliveryDate(deliveryOption) {
+  const deliveryDays = deliveryOption.deliveryDays;
+  let today = dayjs();
+  let dayOfWeek = today.format('dddd');
+  let countDays = 0;
+
+  while (1) {
+    if (countDays < deliveryDays) {
+      if (dayOfWeek === 'Saturday' || dayOfWeek === 'Sunday') {
+        countDays = countDays;
+      }
+      else {
+        countDays++;
+      }
+    }
+    else {
+      break;
+    }
+    today = today.add(1, 'days');
+    dayOfWeek = today.format('dddd');
+  }
+
+  return today.subtract(1, 'days').format('dddd MMM D');
 }
 

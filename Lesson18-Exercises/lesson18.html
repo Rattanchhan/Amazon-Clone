@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Promises Async Await</title>
+</head>
+<body>
+
+    <!-- <button class="post-request">POST</button>
+    <button class="get-request">GET</button> -->
+
+    <button>Post</button>
+    <script>
+        //****************XMLHttpRequest****************
+
+        // const xhr = new XMLHttpRequest();
+        // xhr.addEventListener('load',(response)=>{
+        //     console.log(xhr.response);
+        // })
+        // xhr.open('GET','https://supersimplebackend.dev');
+        // xhr.send();
+
+        //****************fetch request****************
+
+        // async function getRequest(){
+        //     const value = await fetch('https://supersimplebackend.dev').then((response)=>{
+        //         return response.text();
+        //     });
+        //     // }).then((value)=>{
+        //     //     console.log(value);
+        //     // });
+        //     return value;
+        // }
+        // const value = getRequest().then((value)=>{
+        //     console.log(value);
+        // });
+
+        //****************Async Await****************
+        
+        // document.querySelector('.post-request').addEventListener('click',async()=>{
+        //   try{
+        //       const response= await fetch('https://supersimplebackend.dev/greeting',{
+        //       method:'POST',
+        //       headers:{
+        //           'Content-Type': 'application/json; charset=utf-8'
+        //       },
+        //       body: JSON.stringify({name: "ratana"})
+        //   });
+        //   console.log('status:', response.status);
+        //   }catch(error){
+        //       console.log('Unexpected error. Please try again later.');
+        //   }   
+        // });
+        // document.querySelector('.get-request').addEventListener('click', async () => {
+        //     try {
+        //       const response = await fetch('https://supersimplebackend.dev/greeting', {
+        //         method: 'GET'
+        //       });
+        //       console.log('status:', response.status);
+        //       const name = await response.text();
+        //       console.log(name);
+        //     } catch (error) {
+        //       console.log('Unexpected error. Please try again later.');
+        //     }
+        //   })
+
+
+        
+      // document.querySelector('button').addEventListener('click', async()=> {
+      //       try {
+      //         const response = await fetch('https://amazon.com', {
+      //           method: 'GET'
+      //         });
+      //         console.log('status:', response.status);
+      //         throw 'error';
+      //       } catch (error) {
+      //         console.log(error);
+      //         console.log('Unexpected error. Please try again later.');
+      //       }
+      //     })
+
+
+        document.querySelector('button').addEventListener('click',async()=>{
+          try{
+              const response= await fetch('https://supersimplebackend.dev/greeting',{
+              method:'POST',
+              headers:{
+                  'Content-Type': 'application/json; charset=utf-8'
+              }
+            });
+
+            if(response.status >=400){
+                throw response;
+          }
+          }catch(error){
+              console.log(error);
+              if(error.status===400){
+                console.log(await error.json());
+              }
+              else{
+                console.log('Network error. Please try again later.')
+              }
+          }   
+        });
+
+    </script>
+</body>
+</html>

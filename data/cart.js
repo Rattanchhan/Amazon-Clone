@@ -1,4 +1,12 @@
 export let cart;
+
+// export async function loadCartFetch(){
+//   const response = await fetch('https://supersimplebackend.dev/cart');
+//   const text = response.text();
+//   console.log(text);
+//   return text;
+// }
+
 loadCart();
 export function loadCart(){
   cart = JSON.parse(localStorage.getItem('cart'))||[
@@ -105,12 +113,12 @@ export function getCart(productId){
 }
 
 
-export function loadCartTest(fun) {
-  const xhr = new XMLHttpRequest();
-  xhr.addEventListener('load', () => {
-    console.log(xhr.response);
-    fun();
-  });
-  xhr.open('GET', 'https://supersimplebackend.dev/cart');
-  xhr.send();
-}
+// export function loadCartTest(fun) {
+//   const xhr = new XMLHttpRequest();
+//   xhr.addEventListener('load', () => {
+//     console.log(xhr.response);
+//     fun();
+//   });
+//   xhr.open('GET', 'https://supersimplebackend.dev/cart');
+//   xhr.send();
+// }

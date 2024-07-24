@@ -2,7 +2,7 @@ import {renderOrderSummary} from './checkout/orderSummary.js';
 // import getToday from './checkout/orderSummary.js';
 import {renderPaymentSummary} from './checkout/paymentSummary.js';
 import { loadProducts,loadProductsFetch } from '../data/products.js';
-import { loadCartTest } from '../data/cart.js';
+import { loadCart } from '../data/cart.js';
 // import '../data/backend-practice.js';
 // import '../data/cart-oop.js'
 // import '../data/cart-class.js'
@@ -30,17 +30,26 @@ import { loadCartTest } from '../data/cart.js';
 // }
 
 async function loadPage(){
-   console.log('load page');
+   // console.log('load page');
    try{
       // throw 'error1';
-      await loadProductsFetch();
+      // await loadProductsFetch();
 
-      const value=await new Promise((resolve,reject) => {
-            loadCartTest(() => {
-               //reject('error2');
-               resolve('value3');
-            });
-      });
+      // const value=await new Promise((resolve,reject) => {
+      //       loadCartTest(() => {
+      //          //reject('error2');
+      //          resolve('value3');
+      //       });
+      // });
+
+      await Promise.all([
+         loadProductsFetch(),
+         new Promise((resolve)=>{
+            loadCart();
+            resolve();
+         })
+      ]);
+      
    }catch(error){
       console.log('Unexpected error. Please try again later.');
    }
@@ -51,10 +60,20 @@ async function loadPage(){
    return 'value2';
 }
 
-loadPage().then((value)=>{
-   console.log('next step');
-   console.log(value);
-});
+// const response = await Promise.all([
+//    loadProductsFetch(),
+//    loadCartFetch()
+// ]);
+
+// response.then(()=>{
+//    renderOrderSummary();
+//    renderPaymentSummary();
+// })
+loadPage();
+// loadPage().then((value)=>{
+//    console.log('next step');
+//    console.log(value);
+// });
 
 // Promise.all([
 //    loadProductsFetch(),
