@@ -2,6 +2,7 @@ import {renderOrderSummary} from './checkout/orderSummary.js';
 // import getToday from './checkout/orderSummary.js';
 import {renderPaymentSummary} from './checkout/paymentSummary.js';
 import { loadProducts } from '../data/products.js';
+import { loadCartTest } from '../data/cart.js';
 // import '../data/backend-practice.js';
 // import '../data/cart-oop.js'
 // import '../data/cart-class.js'
@@ -27,9 +28,42 @@ import { loadProducts } from '../data/products.js';
 //     return day + " is not weekend";
 //   }
 // }
-loadProducts(()=>{
+
+Promise.all([
+   new Promise((resolve) => {
+      loadProducts(() => {
+         resolve();
+      })
+   }),
+   new Promise((resolve) => {
+      loadCartTest(() => {
+         resolve();
+      });
+   })
+]).then(()=>{
    renderOrderSummary();
-   renderPaymentSummary(); 
-});
+   renderPaymentSummary();
+})
+
+// new Promise((resolve)=>{
+//    loadProducts(()=>{
+//       resolve();
+//    })
+// }).then(()=>{
+//    return new Promise((resolve)=>{
+//       loadCart(()=>{
+//          resolve();
+//       });
+//    });
+// }).then(()=>{
+//    renderOrderSummary();
+//    renderPaymentSummary();
+// });
+
+
+// loadProducts(()=>{
+//    renderOrderSummary();
+//    renderPaymentSummary(); 
+// });
 
 
